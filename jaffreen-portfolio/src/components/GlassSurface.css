@@ -1,0 +1,36 @@
+.glass-surface {
+  position: relative;
+  backdrop-filter: blur(var(--glass-blur, 14px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 14px));
+  background: rgba(255, 255, 255, var(--glass-opacity, 0.04));
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.glass-surface:hover {
+  border-color: rgba(160, 130, 255, 0.35);
+  box-shadow: 0 0 24px rgba(124, 58, 237, 0.08);
+}
+
+/* Distortion layer */
+.glass-surface__distort {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at var(--distort-x, 50%) var(--distort-y, 50%),
+    rgba(124, 58, 237, 0.06) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.glass-surface:hover .glass-surface__distort {
+  opacity: 1;
+}
+
+.glass-surface__content {
+  position: relative;
+  z-index: 1;
+}

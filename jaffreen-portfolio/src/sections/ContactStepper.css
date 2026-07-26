@@ -1,0 +1,351 @@
+/* ────────────────────────────────────────────
+   ContactStepper — Step Content Styles
+   ──────────────────────────────────────────── */
+
+/* ── Wrapper ─────────────────────────────── */
+.cs-wrapper {
+  max-width: 580px;
+  margin: 0 auto 48px;
+  text-align: left;
+}
+
+/* ── Step shared ─────────────────────────── */
+.cs-step {
+  padding-bottom: 0.5rem;
+}
+
+.cs-step-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.cs-step-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* ── Welcome Step ────────────────────────── */
+.cs-welcome {
+  text-align: center;
+  padding: 32px 16px 16px;
+}
+
+.cs-welcome-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: cs-float 3s ease-in-out infinite;
+}
+
+@keyframes cs-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.cs-welcome .cs-step-title {
+  font-size: clamp(20px, 3vw, 24px);
+  background: linear-gradient(135deg, var(--glow-1), var(--glow-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cs-welcome .cs-step-subtitle {
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Form Grid ───────────────────────────── */
+.cs-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cs-field-row {
+  display: flex;
+  gap: 14px;
+}
+
+.cs-field-half {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .cs-field-row {
+    flex-direction: column;
+  }
+}
+
+.cs-field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Labels ──────────────────────────────── */
+.cs-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 7px;
+  letter-spacing: 0.02em;
+}
+
+.cs-optional {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ── Inputs ──────────────────────────────── */
+.cs-input,
+.cs-select,
+.cs-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(160, 130, 255, 0.18);
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--fg);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.cs-input::placeholder,
+.cs-textarea::placeholder {
+  color: rgba(200, 210, 255, 0.3);
+}
+
+.light-mode .cs-input::placeholder,
+.light-mode .cs-textarea::placeholder {
+  color: rgba(15, 23, 42, 0.3);
+}
+
+.light-mode .cs-input,
+.light-mode .cs-select,
+.light-mode .cs-textarea {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(120, 100, 255, 0.22);
+}
+
+.cs-input:focus,
+.cs-select:focus,
+.cs-textarea:focus {
+  outline: none;
+  border-color: var(--glow-1);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.cs-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(200,210,255,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.cs-select option {
+  background: var(--bg-2, #0a0a1a);
+  color: var(--fg);
+}
+
+.cs-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ── Error states ────────────────────────── */
+.cs-has-error {
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+}
+
+.cs-error-text {
+  font-size: 12px;
+  color: #f87171;
+  margin-top: 5px;
+  display: block;
+}
+
+/* ── Review Card ─────────────────────────── */
+.cs-review-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.light-mode .cs-review-card {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.cs-review-section {
+  padding: 18px 20px;
+}
+
+.cs-review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cs-review-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--glow-2);
+}
+
+.cs-review-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+.cs-review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cs-review-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cs-review-full {
+  grid-column: 1 / -1;
+}
+
+.cs-review-key {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.cs-review-value {
+  font-size: 14px;
+  color: var(--fg);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.cs-review-description {
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 480px) {
+  .cs-review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-review-section {
+    padding: 14px 16px;
+  }
+}
+
+/* ── Submit Error ────────────────────────── */
+.cs-submit-error {
+  width: 100%;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+/* ── Submitting Overlay ──────────────────── */
+.cs-submitting-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.cs-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--glow-1);
+  border-radius: 50%;
+  animation: cs-spin 0.7s linear infinite;
+}
+
+@keyframes cs-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Success State ───────────────────────── */
+.cs-success-wrapper {
+  max-width: 580px;
+  margin: 0 auto 48px;
+}
+
+.cs-success-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, var(--glass-opacity, 0.04));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.cs-success-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--glow-1), var(--glow-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.4);
+  color: #fff;
+}
+
+.cs-success-heading {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 12px;
+}
+
+.cs-success-message {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+/* ── Stepper next button submitting state ── */
+.stepper-next-submitting {
+  opacity: 0.6;
+  pointer-events: none;
+}

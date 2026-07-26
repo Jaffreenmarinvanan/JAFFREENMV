@@ -1,0 +1,226 @@
+/* ────────────────────────────────────────────
+   Stepper — Portfolio-Adapted Styles
+   (Based on React Bits Stepper, restyled for
+    glassmorphism dark/light theme)
+   ──────────────────────────────────────────── */
+
+/* Theme tokens for stepper indicators */
+:root {
+  --stepper-indicator-inactive: rgba(255, 255, 255, 0.08);
+  --stepper-indicator-text-inactive: rgba(200, 210, 255, 0.4);
+  --stepper-connector-bg: rgba(120, 100, 255, 0.15);
+}
+
+.light-mode {
+  --stepper-indicator-inactive: rgba(15, 23, 42, 0.08);
+  --stepper-indicator-text-inactive: rgba(15, 23, 42, 0.4);
+  --stepper-connector-bg: rgba(120, 100, 255, 0.2);
+}
+
+/* ── Outer Container ──────────────────────── */
+.stepper-outer-container {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ── Step Circle Container (Card) ─────────── */
+.stepper-circle-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 32rem;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, var(--glass-opacity, 0.04));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(124, 58, 237, 0.05);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.stepper-circle-container:hover {
+  border-color: rgba(160, 130, 255, 0.35);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.2),
+    0 0 24px rgba(124, 58, 237, 0.08);
+}
+
+/* ── Step Indicator Row ──────────────────── */
+.stepper-indicator-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 1.5rem 2rem;
+}
+
+/* ── Step Content ────────────────────────── */
+.stepper-content-default {
+  position: relative;
+  overflow: hidden;
+}
+
+.stepper-step-default {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* ── Footer ──────────────────────────────── */
+.stepper-footer-container {
+  padding: 0 2rem 1.5rem;
+}
+
+.stepper-footer-nav {
+  margin-top: 1.5rem;
+  display: flex;
+}
+
+.stepper-footer-nav.spread {
+  justify-content: space-between;
+}
+
+.stepper-footer-nav.end {
+  justify-content: flex-end;
+}
+
+/* ── Back Button ─────────────────────────── */
+.stepper-back-button {
+  transition: all 350ms;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  color: var(--muted);
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+
+.stepper-back-button:hover {
+  color: var(--fg);
+  border-color: var(--glass-border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.stepper-back-button.inactive {
+  pointer-events: none;
+  opacity: 0.5;
+  color: var(--muted);
+}
+
+/* ── Next Button ─────────────────────────── */
+.stepper-next-button {
+  transition: all 350ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--glow-1), var(--glow-2));
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  font-family: inherit;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+}
+
+.stepper-next-button:hover {
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.45);
+  transform: translateY(-1px);
+}
+
+.stepper-next-button:active {
+  transform: translateY(0);
+}
+
+.stepper-next-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Step Indicator (circle) ─────────────── */
+.stepper-indicator {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+}
+
+.stepper-indicator-inner {
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.stepper-active-dot {
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 9999px;
+  background-color: #fff;
+}
+
+.stepper-step-number {
+  font-size: 0.875rem;
+}
+
+/* ── Step Connector (line) ───────────────── */
+.stepper-connector {
+  position: relative;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  height: 0.125rem;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  background-color: var(--stepper-connector-bg);
+}
+
+.stepper-connector-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+/* ── Check Icon ──────────────────────────── */
+.stepper-check-icon {
+  height: 1rem;
+  width: 1rem;
+  color: #fff;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 640px) {
+  .stepper-indicator-row {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .stepper-step-default {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .stepper-footer-container {
+    padding: 0 1.25rem 1.25rem;
+  }
+
+  .stepper-circle-container {
+    border-radius: 16px;
+  }
+}

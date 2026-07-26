@@ -1,0 +1,70 @@
+/* ────────────────────────────────────────────
+   Contact Section Layout Styles
+   ──────────────────────────────────────────── */
+
+.contact-layout-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-left-info {
+  flex: 1;
+  text-align: left;
+  max-width: 500px;
+}
+
+.contact-title-heading {
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--fg);
+}
+
+.contact-desc-subtitle {
+  color: var(--muted);
+  font-size: clamp(15px, 1.8vw, 17px);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.contact-socials-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.contact-right-stepper {
+  flex: 1;
+  max-width: 580px;
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .contact-layout-wrapper {
+    flex-direction: column;
+    text-align: center;
+    gap: 48px;
+  }
+  
+  .contact-left-info {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .contact-socials-row {
+    justify-content: center;
+  }
+
+  .contact-right-stepper {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,129 @@
+/* ────────────────────────────────────────────
+   Design Tokens & Global Styles
+   ──────────────────────────────────────────── */
+
+:root {
+  --bg:           #05050f;
+  --bg-2:         #0a0a1a;
+  --bg-3:         #0f0f22;
+  --glow-1:       #7c3aed;
+  --glow-2:       #06b6d4;
+  --glow-3:       #ffffff;
+  --fg:           #f0f0ff;
+  --muted:        rgba(200, 210, 255, 0.4);
+  --border:       rgba(120, 100, 255, 0.15);
+  --glass-bg:     rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(160, 130, 255, 0.2);
+}
+
+.light-mode {
+  --bg:           #ffffff;
+  --bg-2:         #f8fafc;
+  --bg-3:         #f1f5f9;
+  --glow-1:       #6366f1; /* Vibrant indigo */
+  --glow-2:       #0ea5e9; /* Bright sky blue */
+  --glow-3:       #ec4899; /* Vibrant pink for gradient punch */
+  --fg:           #0f172a;
+  --muted:        #64748b;
+  --border:       rgba(99, 102, 241, 0.2);
+  --glass-bg:     rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(99, 102, 241, 0.3);
+}
+
+/* ── Reset ───────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; }
+
+/* ── Utility classes ─────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--glow-1), var(--glow-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-wide {
+  background: linear-gradient(135deg, var(--glow-1), var(--glow-2), var(--glow-3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-label {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--glow-2);
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: 40px;
+}
+
+/* ── Section fade-in (IntersectionObserver) ── */
+.section-animate {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Custom scrollbar ────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--glow-1);
+}
+
+/* ── Selection ───────────────────────────── */
+::selection {
+  background: rgba(124, 58, 237, 0.3);
+  color: #fff;
+}
