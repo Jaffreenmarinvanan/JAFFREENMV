@@ -63,7 +63,7 @@ const LoadingScreen = ({ onComplete }) => {
         JAFFREEN MARAIVANAN
       </p>
 
-      {/* Progress bar */}
+      {/* Progress percentage and bar */}
       <div
         style={{
           position: 'absolute',
@@ -72,22 +72,43 @@ const LoadingScreen = ({ onComplete }) => {
           transform: 'translateX(-50%)',
           width: '40%',
           maxWidth: 300,
-          height: 3,
-          borderRadius: 3,
-          background: 'rgba(255,255,255,0.06)',
-          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
         }}
       >
         <div
           style={{
-            height: '100%',
-            width: progress * 100 + '%',
-            borderRadius: 3,
-            background: 'linear-gradient(90deg, #7c3aed, #06b6d4)',
-            transition: 'width 0.1s linear',
-            boxShadow: '0 0 12px rgba(124,58,237,0.5)',
+            fontSize: 14,
+            fontWeight: 500,
+            color: '#06b6d4',
+            fontFamily: "'Inter', sans-serif",
+            letterSpacing: '0.1em',
           }}
-        />
+        >
+          {Math.round(progress * 100)}%
+        </div>
+        <div
+          style={{
+            width: '100%',
+            height: 3,
+            borderRadius: 3,
+            background: 'rgba(255,255,255,0.06)',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${progress * 100}%`,
+              borderRadius: 3,
+              background: 'linear-gradient(90deg, #7c3aed, #06b6d4)',
+              transition: 'width 0.1s linear',
+              boxShadow: '0 0 12px rgba(124,58,237,0.5)',
+            }}
+          />
+        </div>
       </div>
     </div>
   );
