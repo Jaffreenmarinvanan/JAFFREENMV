@@ -10,6 +10,7 @@ import Footer from './sections/Footer';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
   });
@@ -62,18 +63,27 @@ const App = () => {
           transition: 'opacity 0.6s ease 0.1s',
         }}
       >
-        <Navbar theme={theme} toggleTheme={toggleTheme} />
+        <Navbar
+          theme={theme}
+          toggleTheme={toggleTheme}
+          onOpenContact={() => setIsContactOpen(true)}
+        />
         <main>
           <Hero />
           <About />
           <Skills />
           <Projects />
-          <Contact />
         </main>
         <Footer />
+        <Contact
+          isOpen={isContactOpen}
+          onClose={() => setIsContactOpen(false)}
+          onOpen={() => setIsContactOpen(true)}
+        />
       </div>
     </>
   );
 };
 
 export default App;
+

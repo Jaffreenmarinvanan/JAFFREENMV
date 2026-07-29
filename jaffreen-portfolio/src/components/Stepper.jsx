@@ -55,6 +55,29 @@ export default function Stepper({
     updateStep(totalSteps + 1);
   };
 
+  const { onClick: onNextClickProps, ...restNextButtonProps } = nextButtonProps;
+  const { onClick: onBackClickProps, ...restBackButtonProps } = backButtonProps;
+
+  const handleNextCombined = (e) => {
+    if (onNextClickProps) {
+      const allowed = onNextClickProps(e);
+      if (allowed === false || e.defaultPrevented) return;
+    }
+    if (isLastStep) {
+      handleComplete();
+    } else {
+      handleNext();
+    }
+  };
+
+  const handleBackCombined = (e) => {
+    if (onBackClickProps) {
+      const allowed = onBackClickProps(e);
+      if (allowed === false || e.defaultPrevented) return;
+    }
+    handleBack();
+  };
+
   return (
     <div className="stepper-outer-container" {...rest}>
       <div className={`stepper-circle-container ${stepCircleContainerClassName}`}>
@@ -104,14 +127,18 @@ export default function Stepper({
             <div className={`stepper-footer-nav ${currentStep !== 1 ? 'spread' : 'end'}`}>
               {currentStep !== 1 && (
                 <button
-                  onClick={handleBack}
+                  onClick={handleBackCombined}
                   className={`stepper-back-button ${currentStep === 1 ? 'inactive' : ''}`}
-                  {...backButtonProps}
+                  {...restBackButtonProps}
                 >
                   {backButtonText}
                 </button>
               )}
-              <button onClick={isLastStep ? handleComplete : handleNext} className="stepper-next-button" {...nextButtonProps}>
+              <button
+                onClick={handleNextCombined}
+                className="stepper-next-button"
+                {...restNextButtonProps}
+              >
                 {isLastStep ? 'Complete' : nextButtonText}
               </button>
             </div>

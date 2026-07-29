@@ -1,7 +1,214 @@
 /* ────────────────────────────────────────────
-   Contact Section Layout Styles
+   Contact Section & Modal Layout Styles
    ──────────────────────────────────────────── */
 
+/* Floating Glassmorphism Message Button (Bottom-Left) */
+.floating-contact-btn {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px 12px 14px;
+  border-radius: 40px;
+  background: rgba(18, 18, 28, 0.68);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(124, 58, 237, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: var(--fg, #ffffff);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+  user-select: none;
+}
+
+:root.light-mode .floating-contact-btn {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(124, 58, 237, 0.25);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(124, 58, 237, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  color: #0f172a;
+}
+
+.floating-contact-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  background: rgba(26, 24, 42, 0.88);
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 
+    0 14px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(124, 58, 237, 0.45),
+    0 0 15px rgba(6, 182, 212, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+:root.light-mode .floating-contact-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(124, 58, 237, 0.5);
+}
+
+.floating-contact-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Icon & Status Dot inside Floating Button */
+.contact-btn-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(6, 182, 212, 0.3));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.floating-contact-btn:hover .contact-btn-icon-wrapper {
+  transform: rotate(-10deg) scale(1.1);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.6), rgba(6, 182, 212, 0.6));
+}
+
+.contact-btn-status-dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid rgba(18, 18, 28, 0.9);
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.contact-btn-text {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Glassmorphic Modal Backdrop */
+.contact-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(6, 6, 12, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow-y: auto;
+}
+
+:root.light-mode .contact-modal-backdrop {
+  background: rgba(240, 242, 248, 0.78);
+}
+
+/* Modal Glass Container */
+.contact-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: rgba(18, 18, 30, 0.88);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  padding: 48px 40px;
+  box-shadow: 
+    0 32px 100px rgba(0, 0, 0, 0.75),
+    0 0 40px rgba(124, 58, 237, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  margin: auto;
+}
+
+:root.light-mode .contact-modal-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(124, 58, 237, 0.2);
+  box-shadow: 
+    0 32px 80px rgba(0, 0, 0, 0.15),
+    0 0 30px rgba(124, 58, 237, 0.12);
+}
+
+/* Custom Scrollbar for Modal Card */
+.contact-modal-card::-webkit-scrollbar {
+  width: 6px;
+}
+.contact-modal-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+.contact-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+/* Close Button */
+.contact-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--fg, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-modal-close:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #ef4444;
+  transform: rotate(90deg) scale(1.08);
+}
+
+:root.light-mode .contact-modal-close {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+}
+
+/* Ambient Radial Glow */
+.contact-modal-glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Content Layout */
 .contact-layout-wrapper {
   position: relative;
   z-index: 1;
@@ -9,7 +216,7 @@
   align-items: center;
   justify-content: center;
   gap: 60px;
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
   width: 100%;
 }
@@ -17,11 +224,11 @@
 .contact-left-info {
   flex: 1;
   text-align: left;
-  max-width: 500px;
+  max-width: 480px;
 }
 
 .contact-title-heading {
-  font-size: clamp(32px, 4.5vw, 52px);
+  font-size: clamp(28px, 3.8vw, 48px);
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 20px;
@@ -30,9 +237,9 @@
 
 .contact-desc-subtitle {
   color: var(--muted);
-  font-size: clamp(15px, 1.8vw, 17px);
+  font-size: clamp(14px, 1.6vw, 16px);
   line-height: 1.6;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .contact-socials-row {
@@ -43,16 +250,21 @@
 
 .contact-right-stepper {
   flex: 1;
-  max-width: 580px;
+  max-width: 540px;
   width: 100%;
 }
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
+  .contact-modal-card {
+    padding: 36px 20px;
+    border-radius: 20px;
+  }
+
   .contact-layout-wrapper {
     flex-direction: column;
     text-align: center;
-    gap: 48px;
+    gap: 36px;
   }
   
   .contact-left-info {
@@ -68,3 +280,16 @@
     max-width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .floating-contact-btn {
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 16px 10px 12px;
+  }
+  
+  .contact-btn-text {
+    font-size: 13px;
+  }
+}
+

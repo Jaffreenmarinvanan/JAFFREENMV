@@ -249,11 +249,7 @@ const ContactStepper = () => {
         backButtonText="← Back"
         nextButtonText="Continue →"
         nextButtonProps={{
-          onClick: (e) => {
-            if (!handleNextClick(e)) {
-              e.stopPropagation();
-            }
-          },
+          onClick: handleNextClick,
           disabled: isSubmitting,
           className: `stepper-next-button ${isSubmitting ? 'stepper-next-submitting' : ''}`,
         }}

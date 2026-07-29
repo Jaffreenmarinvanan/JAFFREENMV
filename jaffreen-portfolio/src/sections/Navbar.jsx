@@ -4,10 +4,15 @@ import SpecularButton from '../components/SpecularButton';
 
 const navLinks = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
 
-const Navbar = ({ theme, toggleTheme }) => {
+const Navbar = ({ theme, toggleTheme, onOpenContact }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const scrollTo = (id) => {
+    if (id.toLowerCase() === 'contact') {
+      if (onOpenContact) onOpenContact();
+      setMobileOpen(false);
+      return;
+    }
     const el = document.getElementById(id.toLowerCase());
     if (el) el.scrollIntoView({ behavior: 'smooth' });
     setMobileOpen(false);
