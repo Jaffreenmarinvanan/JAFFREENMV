@@ -146,28 +146,63 @@
 
 /* Gentle floating keyframes */
 @keyframes floatCard {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes floatPill1 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 @keyframes floatPill2 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 @keyframes floatPill3 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 @keyframes floatPill4 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
 }
 
 /* Responsive adjustments */
@@ -177,25 +212,31 @@
     height: 350px;
     border-radius: 28px;
   }
+
   .badge-card__image {
     border-radius: 28px;
   }
+
   .pill-badge {
     font-size: 13px;
     padding: 6px 16px;
   }
+
   .pill-badge--top-left {
     left: -20px;
     top: 10%;
   }
+
   .pill-badge--top-right {
     right: -16px;
     top: 5%;
   }
+
   .pill-badge--bottom-left {
     left: -20px;
     bottom: 15%;
   }
+
   .pill-badge--bottom-right {
     right: -16px;
     bottom: 8%;

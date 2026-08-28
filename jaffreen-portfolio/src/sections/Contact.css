@@ -129,18 +129,26 @@
   width: 100%;
   max-width: 1100px;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;           /* clip canvas to card boundary */
   background: rgba(18, 18, 30, 0.88);
   backdrop-filter: blur(24px) saturate(190%);
   -webkit-backdrop-filter: blur(24px) saturate(190%);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 28px;
-  padding: 48px 40px;
   box-shadow: 
     0 32px 100px rgba(0, 0, 0, 0.75),
     0 0 40px rgba(124, 58, 237, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
   margin: auto;
+}
+
+/* Scroll wrapper inside the card so canvas stays fixed */
+.contact-modal-scroll-inner {
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  max-height: 90vh;
+  padding: 48px 40px;
 }
 
 :root.light-mode .contact-modal-card {
@@ -151,23 +159,27 @@
     0 0 30px rgba(124, 58, 237, 0.12);
 }
 
-/* Custom Scrollbar for Modal Card */
-.contact-modal-card::-webkit-scrollbar {
+:root.light-mode .contact-modal-scroll-inner {
+  /* inherits light look from card */
+}
+
+/* Custom Scrollbar for scroll-inner */
+.contact-modal-scroll-inner::-webkit-scrollbar {
   width: 6px;
 }
-.contact-modal-card::-webkit-scrollbar-track {
+.contact-modal-scroll-inner::-webkit-scrollbar-track {
   background: transparent;
 }
-.contact-modal-card::-webkit-scrollbar-thumb {
+.contact-modal-scroll-inner::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 3px;
 }
 
-/* Close Button */
+/* Close Button — floats at top-right of the scroll layer */
 .contact-modal-close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
+  position: sticky;
+  top: 0;
+  float: right;
   z-index: 10;
   width: 40px;
   height: 40px;
@@ -180,6 +192,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-left: auto;
 }
 
 .contact-modal-close:hover {
@@ -257,8 +270,11 @@
 /* Responsive adjustments */
 @media (max-width: 900px) {
   .contact-modal-card {
-    padding: 36px 20px;
     border-radius: 20px;
+  }
+
+  .contact-modal-scroll-inner {
+    padding: 36px 20px;
   }
 
   .contact-layout-wrapper {

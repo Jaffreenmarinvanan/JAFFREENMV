@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import SpecularButton from '../components/SpecularButton';
+import GlowBorderButton from '../components/GlowBorderButton';
 import FloatingBadge from '../components/FloatingBadge';
 import RotatingText from '../components/RotatingText';
 
@@ -52,34 +52,6 @@ const Hero = () => {
         overflow: 'hidden',
       }}
     >
-      {/* Animated grid background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-          animation: 'gridPulse 6s ease-in-out infinite',
-        }}
-      />
-
-      {/* Radial glow */}
-      <div
-        style={{
-          position: 'absolute',
-          width: '60vw',
-          height: '60vw',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-        }}
-      />
 
       {/* Main hero content: two-column layout */}
       <div
@@ -164,23 +136,16 @@ const Hero = () => {
               marginBottom: 32,
             }}
           >
-            <SpecularButton
+            <GlowBorderButton
               size="lg"
-              radius={24}
-              lineColor="#7c3aed"
-              autoAnimate={false}
-              followMouse={true}
+              glowSize={130}
               onClick={() => scrollTo('projects')}
             >
               View My Work
-            </SpecularButton>
-            <SpecularButton
+            </GlowBorderButton>
+            <GlowBorderButton
               size="lg"
-              radius={24}
-              lineColor="#06b6d4"
-              autoAnimate={false}
-              followMouse={true}
-              href="#resume"
+              glowSize={130}
               onClick={(e) => {
                 e.preventDefault();
                 alert("Resume PDF will be uploaded soon!");
@@ -189,7 +154,7 @@ const Hero = () => {
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <FaDownload size={14} /> Resume
               </span>
-            </SpecularButton>
+            </GlowBorderButton>
           </div>
 
           {/* Social Profiles Row */}
@@ -216,10 +181,6 @@ const Hero = () => {
       </div>
 
       <style>{`
-        @keyframes gridPulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
         
         .hero-status {
           display: inline-flex;

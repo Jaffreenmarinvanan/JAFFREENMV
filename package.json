@@ -1,0 +1,10 @@
+{
+  "name": "jaffreen-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix jaffreen-portfolio run dev",
+    "build": "npm --prefix jaffreen-portfolio run build",
+    "preview": "npm --prefix jaffreen-portfolio run preview"
+  }
+}

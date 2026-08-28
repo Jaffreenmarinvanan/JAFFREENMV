@@ -1,5 +1,6 @@
 import React from 'react';
 import LogoLoop from '../components/LogoLoop';
+import Threads from '../components/Threads';
 import { FaReact, FaNodeJs, FaPython, FaDocker, FaGitAlt, FaAws, FaFigma } from 'react-icons/fa';
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiPostgresql, SiMongodb } from 'react-icons/si';
 
@@ -24,12 +25,30 @@ const Skills = () => {
       id="skills"
       className="section-animate"
       style={{
+        position: 'relative',
         padding: '100px 0',
         background: 'var(--bg-2)',
         overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 24px' }}>
+      {/* Threads animated background */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      >
+        <Threads
+          color={[0.49, 0.23, 0.93]}
+          amplitude={1.2}
+          distance={0.3}
+          enableMouseInteraction={true}
+        />
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto', padding: '0 24px' }}>
         <p className="section-label">SKILL</p>
         <h2 className="section-heading">PROFESSIONAL SKILLS</h2>
       </div>

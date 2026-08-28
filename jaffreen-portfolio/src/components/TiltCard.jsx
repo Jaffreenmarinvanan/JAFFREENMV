@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import Tilt from 'react-parallax-tilt';
-import SpecularButton from './SpecularButton';
+import GlowBorderButton from './GlowBorderButton';
 import './TiltCard.css';
 
 const TiltCard = ({ index, title, desc, tags, accent }) => {
@@ -48,9 +48,9 @@ const TiltCard = ({ index, title, desc, tags, accent }) => {
               <span key={j} className="tilt-card__tag">{tag}</span>
             ))}
           </div>
-          <SpecularButton size="sm" radius={14} lineColor={accent}>
+          <GlowBorderButton size="sm" glowSize={90}>
             View Project →
-          </SpecularButton>
+          </GlowBorderButton>
         </div>
       </div>
     </Tilt>
