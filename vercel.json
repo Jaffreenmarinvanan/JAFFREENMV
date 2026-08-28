@@ -1,0 +1,5 @@
+{
+  "installCommand": "npm install && npm --prefix jaffreen-portfolio install",
+  "buildCommand": "npm --prefix jaffreen-portfolio run build",
+  "outputDirectory": "jaffreen-portfolio/dist"
+}
