@@ -139,9 +139,9 @@ const Hero = () => {
             <GlowBorderButton
               size="lg"
               glowSize={130}
-              onClick={() => scrollTo('projects')}
+              onClick={() => scrollTo('skills')}
             >
-              View My Work
+              Explore Skills
             </GlowBorderButton>
             <GlowBorderButton
               size="lg"
@@ -178,18 +178,14 @@ const Hero = () => {
         <div className="hero-badge" style={{ flexShrink: 0 }}>
           <FloatingBadge />
           
-          {/* Signature Video directly below photo */}
+          {/* Signature in transparent PNG format with pure white text & zero background */}
           <div className="hero-signature-wrapper">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="hero-signature-video"
-            >
-              <source src="/jaffreen-maraivanan-c-handwriting.mp4" type="video/mp4" />
-              <source src="/video.mp4" type="video/mp4" />
-            </video>
+            <img
+              src="/jaffreen-signature.png"
+              alt="Jaffreen Maraivanan . C"
+              className="hero-signature-img"
+              loading="eager"
+            />
           </div>
         </div>
       </div>
@@ -205,26 +201,26 @@ const Hero = () => {
 
         .hero-signature-wrapper {
           position: relative;
-          width: 320px;
+          width: 100%;
+          max-width: 320px;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: 4px;
+          margin-top: 6px;
         }
 
-        .hero-signature-video {
+        .hero-signature-img {
           width: 100%;
-          max-width: 320px;
+          max-width: 300px;
           height: auto;
           display: block;
-          mix-blend-mode: screen;
+          object-fit: contain;
           pointer-events: none;
-          filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.4));
+          user-select: none;
         }
 
-        .light-mode .hero-signature-video {
-          mix-blend-mode: multiply;
-          filter: invert(1) drop-shadow(0 0 10px rgba(120, 100, 255, 0.3));
+        .light-mode .hero-signature-img {
+          filter: invert(1);
         }
 
         .hero-status {
