@@ -3,7 +3,7 @@ import ProjectCard from '../components/ProjectCard';
 
 // Real projects sourced from Jaffreen's portfolio and repositories:
 const projectItems = [
-  {
+ /*
     title: 'Contact API & 100% Inbox Delivery Engine',
     desc: 'Production-grade custom backend platform with multi-provider failover (SMTP & Resend), bot honeypot filter, rate limiting, and zero-data-loss inquiry storage.',
     category: 'Web Application',
@@ -26,7 +26,7 @@ const projectItems = [
     image: '/profile.jpg',
     repoLink: 'https://github.com/Jaffreenmarinvanan/Naanmudhalvan',
     demoLink: 'https://github.com/Jaffreenmarinvanan/Naanmudhalvan',
-  },
+  },*/
 ];
 
 const Projects = () => {

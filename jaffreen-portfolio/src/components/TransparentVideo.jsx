@@ -6,12 +6,16 @@ import React, { useRef, useEffect } from 'react';
  * Real-time chroma-key transparent canvas player for the handwriting signature video.
  * Removes all black/dark compression artifacts to output 100% transparent background
  * with pure crisp white text. Eliminates any rectangular bounding boxes or glow boxes.
+ * Supports source frame cropping to remove top/bottom empty padding in square videos.
  * ─────────────────────────────────────────────────────────────────────────────
  */
+const DEFAULT_CROP = { sx: 75, sy: 455, sWidth: 825, sHeight: 190 };
+
 const TransparentVideo = ({
   src = '/jaffreen-maraivanan-c-handwriting.mp4',
-  width = 340,
-  height = 100,
+  width = 330,
+  height = 80,
+  crop = DEFAULT_CROP,
   className = '',
 }) => {
   const videoRef = useRef(null);
@@ -28,23 +32,40 @@ const TransparentVideo = ({
     let animationFrameId;
     let isPlaying = false;
 
-    // Detect light mode from document
-    const handleLoadedMetadata = () => {
-      if (video.videoWidth && video.videoHeight) {
+    const updateCanvasSize = () => {
+      if (crop) {
+        canvas.width = crop.sWidth;
+        canvas.height = crop.sHeight;
+      } else if (video.videoWidth && video.videoHeight) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
+      } else {
+        canvas.width = width;
+        canvas.height = height;
       }
     };
 
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    if (video.videoWidth && video.videoHeight) {
-      handleLoadedMetadata();
-    }
+    video.addEventListener('loadedmetadata', updateCanvasSize);
+    updateCanvasSize();
 
     const render = () => {
       if (video.readyState >= 2 && !video.paused && !video.ended) {
-        // Draw raw video frame to canvas
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // Draw cropped region of video to canvas
+        if (crop && video.videoWidth && video.videoHeight) {
+          ctx.drawImage(
+            video,
+            crop.sx,
+            crop.sy,
+            crop.sWidth,
+            crop.sHeight,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+        } else {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
 
         // Read pixels to strip black background and boost white handwriting
         try {
@@ -66,12 +87,12 @@ const TransparentVideo = ({
             // Perceived luminance
             const lum = 0.299 * r + 0.587 * g + 0.114 * b;
 
-            // Threshold: anything below 35 is pure background noise -> make 100% transparent
-            if (lum < 35) {
+            // Threshold: anything below 32 is pure background noise -> make 100% transparent
+            if (lum < 32) {
               data[i + 3] = 0;
             } else {
               // Smooth anti-aliased alpha
-              const alpha = Math.min(255, (lum - 35) * 1.5);
+              const alpha = Math.min(255, (lum - 32) * 2.2);
               data[i] = targetR;
               data[i + 1] = targetG;
               data[i + 2] = targetB;
@@ -112,12 +133,12 @@ const TransparentVideo = ({
     return () => {
       cancelAnimationFrame(animationFrameId);
       video.removeEventListener('play', handlePlay);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('loadedmetadata', updateCanvasSize);
     };
-  }, [src]);
+  }, [src, crop, width, height]);
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block', lineHeight: 0 }}>
+    <div style={{ position: 'relative', display: 'inline-block', lineHeight: 0, width: '100%', maxWidth: `${width}px` }}>
       {/* Hidden source video */}
       <video
         ref={videoRef}
@@ -139,8 +160,8 @@ const TransparentVideo = ({
       {/* Rendered transparent canvas */}
       <canvas
         ref={canvasRef}
-        width={width}
-        height={height}
+        width={crop ? crop.sWidth : width}
+        height={crop ? crop.sHeight : height}
         className={className}
         style={{
           width: '100%',

@@ -183,8 +183,8 @@ const Hero = () => {
           <div className="hero-signature-wrapper">
             <TransparentVideo
               src="/jaffreen-maraivanan-c-handwriting.mp4"
-              width={340}
-              height={100}
+              width={320}
+              height={75}
               className="hero-signature-canvas"
             />
           </div>
@@ -197,17 +197,17 @@ const Hero = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 16px;
+          gap: 0;
         }
 
         .hero-signature-wrapper {
           position: relative;
           width: 100%;
-          max-width: 330px;
+          max-width: 320px;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: 6px;
+          margin-top: -8px;
           pointer-events: none;
         }
 
@@ -374,13 +374,15 @@ const Hero = () => {
 
         @media (max-width: 640px) {
           .hero-signature-wrapper {
-            width: 280px;
+            max-width: 250px;
+            margin-top: -12px;
           }
         }
 
         @media (max-width: 480px) {
           .hero-signature-wrapper {
-            width: 240px;
+            max-width: 210px;
+            margin-top: -16px;
           }
         }
       `}</style>
