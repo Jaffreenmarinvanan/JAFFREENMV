@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { motion } from 'motion/react';
 import Stepper, { Step } from '../components/Stepper';
 import SpecularButton from '../components/SpecularButton';
-import soundManager from '../utils/soundManager';
 import './ContactStepper.css';
 
 const projectTypes = [
@@ -123,10 +122,8 @@ const ContactStepper = () => {
         setInquiryId(data.inquiryId);
       }
       setIsSuccess(true);
-      soundManager.success();
     } catch (err) {
       console.error('Contact API submit error:', err);
-      soundManager.click();
       setSubmitError(
         err.message || 'Failed to send message. Please try again or reach out directly via social links.'
       );
@@ -140,7 +137,6 @@ const ContactStepper = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleStepChange = (step) => {
-    soundManager.hover();
     setCurrentStep(step);
   };
 

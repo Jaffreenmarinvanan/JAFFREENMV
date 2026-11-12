@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import ContactStepper from './ContactStepper';
 import SpecularButton from '../components/SpecularButton';
 import InteractiveLines from '../components/InteractiveLines';
-import soundManager from '../utils/soundManager';
 import './Contact.css';
 
 const Contact = ({ isOpen, onClose, onOpen }) => {
@@ -12,7 +11,6 @@ const Contact = ({ isOpen, onClose, onOpen }) => {
   const activeOpen = isOpen !== undefined ? isOpen : internalOpen;
 
   const handleOpen = () => {
-    soundManager.modalOpen();
     if (onOpen) {
       onOpen();
     } else {
@@ -20,14 +18,13 @@ const Contact = ({ isOpen, onClose, onOpen }) => {
     }
   };
 
-  const handleClose = useCallback(() => {
-    soundManager.modalClose();
+  const handleClose = () => {
     if (onClose) {
       onClose();
     } else {
       setInternalOpen(false);
     }
-  }, [onClose]);
+  };
 
   // Close modal on Escape key press & prevent background scroll when open
   useEffect(() => {
@@ -48,7 +45,7 @@ const Contact = ({ isOpen, onClose, onOpen }) => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [activeOpen, handleClose]);
+  }, [activeOpen]);
 
   return (
     <>

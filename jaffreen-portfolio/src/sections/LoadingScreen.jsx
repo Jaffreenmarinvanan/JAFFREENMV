@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import TextPressure from '../components/TextPressure';
-import soundManager from '../utils/soundManager';
 
 const LoadingScreen = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    const duration = 2000;
+    const duration = 2200;
     const start = Date.now();
     const tick = () => {
       const elapsed = Date.now() - start;
@@ -18,10 +17,9 @@ const LoadingScreen = ({ onComplete }) => {
     requestAnimationFrame(tick);
 
     const timer = setTimeout(() => {
-      soundManager.transition();
       setFadeOut(true);
       setTimeout(() => onComplete?.(), 500);
-    }, 2200);
+    }, 2400);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
