@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
+import soundManager from '../utils/soundManager';
 
 // Real projects sourced from Jaffreen's portfolio and repositories:
 const projectItems = [
@@ -45,13 +46,16 @@ const Projects = () => {
         alignItems: 'center',
       }}
     >
-      <h2 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: 'bold', marginBottom: '40px', color: '#fff', textAlign: 'center' }}>
+      <h2 className="stagger-child" style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: 'bold', marginBottom: '40px', color: '#fff', textAlign: 'center' }}>
         Featured Projects
       </h2>
 
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '40px', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className="stagger-child" style={{ display: 'flex', gap: '12px', marginBottom: '40px', flexWrap: 'wrap', justifyContent: 'center' }}>
         <button
-          onClick={() => setActiveCategory('Web Application')}
+          onClick={() => {
+            soundManager.play('click');
+            setActiveCategory('Web Application');
+          }}
           style={{
             padding: 'clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px)',
             borderRadius: '99px',
@@ -61,15 +65,17 @@ const Projects = () => {
             cursor: 'pointer',
             fontWeight: 500,
             fontSize: 'clamp(13px, 3vw, 15px)',
-            transition: 'all 0.3s ease',
+            transition: 'transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1), background 180ms ease',
             boxShadow: activeCategory === 'Web Application' ? '0 0 20px rgba(168, 85, 247, 0.4)' : 'none',
           }}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
+          onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
         >
           Web Applications
         </button>
       </div>
 
-      <div style={{ 
+      <div className="stagger-child" style={{ 
         display: 'grid', 
         gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))', 
         gap: '24px', 

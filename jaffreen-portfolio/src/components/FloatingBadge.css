@@ -21,12 +21,13 @@
     0 24px 48px -12px rgba(0, 0, 0, 0.4),
     0 0 32px rgba(124, 58, 237, 0.12);
   overflow: visible;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  animation: floatCard 6s ease-in-out infinite;
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: floatCard 6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  will-change: transform;
 }
 
 .badge-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow:
     0 32px 60px -16px rgba(0, 0, 0, 0.5),
     0 0 40px rgba(124, 58, 237, 0.2);
@@ -62,8 +63,9 @@
   z-index: 10;
   letter-spacing: -0.01em;
   white-space: nowrap;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+  will-change: transform;
 }
 
 .light-mode .pill-badge {
@@ -76,7 +78,7 @@
 }
 
 .pill-badge:hover {
-  transform: scale(1.08) translateY(-2px);
+  transform: translateY(-3px) scale(1.04);
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(124, 58, 237, 0.4);
   box-shadow:
@@ -123,25 +125,25 @@
 .pill-badge--top-left {
   top: 12%;
   left: -32px;
-  animation: floatPill1 5s ease-in-out infinite;
+  animation: floatPill1 5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .pill-badge--top-right {
   top: 6%;
   right: -28px;
-  animation: floatPill2 5.5s ease-in-out infinite;
+  animation: floatPill2 5.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .pill-badge--bottom-left {
   bottom: 18%;
   left: -36px;
-  animation: floatPill3 6s ease-in-out infinite;
+  animation: floatPill3 6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .pill-badge--bottom-right {
   bottom: 10%;
   right: -28px;
-  animation: floatPill4 5.2s ease-in-out infinite;
+  animation: floatPill4 5.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 /* Gentle floating keyframes */
@@ -153,7 +155,7 @@
   }
 
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
@@ -165,7 +167,7 @@
   }
 
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
 }
 
@@ -177,7 +179,7 @@
   }
 
   50% {
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
 }
 
@@ -189,7 +191,7 @@
   }
 
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
   }
 }
 
@@ -201,7 +203,7 @@
   }
 
   50% {
-    transform: translateY(5px);
+    transform: translateY(3px);
   }
 }
 

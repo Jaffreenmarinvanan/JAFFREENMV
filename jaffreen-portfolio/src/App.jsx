@@ -32,19 +32,20 @@ const App = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  /* IntersectionObserver for section fade-in */
+  /* IntersectionObserver for scroll-based section reveal (15% visibility, animate once) */
   useEffect(() => {
     if (loading) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     const sections = document.querySelectorAll('.section-animate');
@@ -60,7 +61,7 @@ const App = () => {
       <div
         style={{
           opacity: loading ? 0 : 1,
-          transition: 'opacity 0.6s ease 0.1s',
+          transition: 'opacity 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         <Navbar

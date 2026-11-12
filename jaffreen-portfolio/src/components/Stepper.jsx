@@ -1,5 +1,6 @@
 import React, { useState, Children, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import soundManager from '../utils/soundManager';
 
 import './Stepper.css';
 
@@ -59,6 +60,7 @@ export default function Stepper({
   const { onClick: onBackClickProps, ...restBackButtonProps } = backButtonProps;
 
   const handleNextCombined = (e) => {
+    soundManager.play('click');
     if (onNextClickProps) {
       const allowed = onNextClickProps(e);
       if (allowed === false || e.defaultPrevented) return;
@@ -71,6 +73,7 @@ export default function Stepper({
   };
 
   const handleBackCombined = (e) => {
+    soundManager.play('click');
     if (onBackClickProps) {
       const allowed = onBackClickProps(e);
       if (allowed === false || e.defaultPrevented) return;
@@ -185,7 +188,7 @@ function SlideTransition({ children, direction, onHeightReady }) {
       initial="enter"
       animate="center"
       exit="exit"
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       style={{ position: 'absolute', left: 0, right: 0, top: 0 }}
     >
       {children}

@@ -12,11 +12,11 @@ const About = () => {
         margin: '0 auto',
       }}
     >
-      <p className="section-label">About Me</p>
-      <h2 className="section-heading">Turning ideas into real digital products</h2>
+      <p className="section-label stagger-child">About Me</p>
+      <h2 className="section-heading stagger-child">Turning ideas into real digital products</h2>
 
       <div
-        className="about-grid"
+        className="about-grid stagger-child"
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',

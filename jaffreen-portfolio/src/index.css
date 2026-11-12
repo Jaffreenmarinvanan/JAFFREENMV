@@ -96,16 +96,32 @@ button { font-family: inherit; }
   margin-bottom: 40px;
 }
 
-/* ── Section fade-in (IntersectionObserver) ── */
+/* ── Scroll-based Section & Child Reveals ── */
 .section-animate {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 .section-animate.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
+
+.section-animate .stagger-child {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.section-animate.is-visible .stagger-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+.section-animate.is-visible .stagger-child:nth-child(1) { transition-delay: 70ms; }
+.section-animate.is-visible .stagger-child:nth-child(2) { transition-delay: 140ms; }
+.section-animate.is-visible .stagger-child:nth-child(3) { transition-delay: 210ms; }
+.section-animate.is-visible .stagger-child:nth-child(4) { transition-delay: 280ms; }
 
 /* ── Custom scrollbar ────────────────────── */
 ::-webkit-scrollbar {

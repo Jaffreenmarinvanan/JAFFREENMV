@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import soundManager from '../utils/soundManager';
 
 const Footer = () => {
   return (
@@ -16,19 +17,19 @@ const Footer = () => {
             <span className="gradient-text logo-text">JMV</span>
 
             <div className="footer-socials-popup">
-              <a href="https://github.com/Jaffreenmarinvanan" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="GitHub">
+              <a href="https://github.com/Jaffreenmarinvanan" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="GitHub" onClick={() => soundManager.play('click')}>
                 <FaGithub size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="LinkedIn" onClick={() => soundManager.play('click')}>
                 <FaLinkedin size={20} />
               </a>
-              <a href="https://www.instagram.com/jaffreez_mv/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="Instagram">
+              <a href="https://www.instagram.com/jaffreez_mv/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="Instagram" onClick={() => soundManager.play('click')}>
                 <FaInstagram size={20} />
               </a>
-              <a href="https://x.com/jaffreen_m" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="X (Twitter)">
+              <a href="https://x.com/jaffreen_m" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="X (Twitter)" onClick={() => soundManager.play('click')}>
                 <FaXTwitter size={20} />
               </a>
-              <a href="mailto:jaffreenmarinvanan4@gmail.com" className="footer-social-btn" aria-label="Email Jaffreen" title="Email Jaffreen">
+              <a href="mailto:jaffreenmarinvanan4@gmail.com" className="footer-social-btn" aria-label="Email Jaffreen" title="Email Jaffreen" onClick={() => soundManager.play('click')}>
                 <FaEnvelope size={19} />
               </a>
             </div>
@@ -122,7 +123,7 @@ const Footer = () => {
           font-size: 24px;
           font-weight: 900;
           letter-spacing: -0.04em;
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
           z-index: 2;
         }
@@ -144,10 +145,11 @@ const Footer = () => {
           /* Animation starting state */
           opacity: 0;
           visibility: hidden;
-          transform: translateY(20px) scale(0.8);
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transform: translateY(16px) scale(0.95);
+          transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), visibility 280ms;
           pointer-events: none;
           z-index: 3;
+          will-change: transform, opacity;
         }
 
         /* The Arrow for Popup */
@@ -164,8 +166,8 @@ const Footer = () => {
 
         /* Hover interactions */
         .logo-container:hover .logo-text {
-          transform: scale(0.9);
-          opacity: 0.5;
+          transform: scale(0.96);
+          opacity: 0.6;
         }
 
         .logo-container:hover .footer-socials-popup,
@@ -179,16 +181,22 @@ const Footer = () => {
         /* Social Buttons within Footer */
         .footer-social-btn {
           color: #a1a1aa;
-          transition: all 0.3s ease;
+          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           align-items: center;
           justify-content: center;
+          will-change: transform;
         }
 
         .footer-social-btn:hover {
           color: #fff;
-          transform: translateY(-3px) scale(1.15);
+          transform: translateY(-2px) scale(1.04);
           text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-social-btn:active {
+          transform: translateY(0) scale(0.96);
+          transition-duration: 120ms;
         }
 
         @media (max-width: 768px) {

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import soundManager from '../utils/soundManager';
 import './SpecularButton.css';
 
 const SpecularButton = ({
@@ -55,12 +56,17 @@ const SpecularButton = ({
     ? { href, target: '_blank', rel: 'noopener noreferrer' }
     : { type, disabled };
 
+  const handleClick = (e) => {
+    soundManager.play('click');
+    if (onClick) onClick(e);
+  };
+
   return (
     <Tag
       ref={btnRef}
       className={`specular-btn specular-btn--${size} ${autoAnimate && !disabled ? 'specular-btn--animate' : ''} ${disabled ? 'specular-btn--disabled' : ''} ${className}`}
       style={{ borderRadius: radius, opacity: disabled ? 0.6 : 1, cursor: disabled ? 'not-allowed' : 'pointer', ...style }}
-      onClick={disabled ? undefined : onClick}
+      onClick={disabled ? undefined : handleClick}
       {...tagProps}
       {...rest}
     >

@@ -18,8 +18,8 @@ const LoadingScreen = ({ onComplete }) => {
 
     const timer = setTimeout(() => {
       setFadeOut(true);
-      setTimeout(() => onComplete?.(), 500);
-    }, 2400);
+      setTimeout(() => onComplete?.(), 350);
+    }, 2200);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -36,7 +36,7 @@ const LoadingScreen = ({ onComplete }) => {
         alignItems: 'center',
         justifyContent: 'center',
         opacity: fadeOut ? 0 : 1,
-        transition: 'opacity 0.5s ease',
+        transition: 'opacity 350ms cubic-bezier(0.16, 1, 0.3, 1)',
         pointerEvents: fadeOut ? 'none' : 'auto',
       }}
     >

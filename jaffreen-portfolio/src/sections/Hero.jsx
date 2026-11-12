@@ -6,6 +6,7 @@ import GlowBorderButton from '../components/GlowBorderButton';
 import FloatingBadge from '../components/FloatingBadge';
 import RotatingText from '../components/RotatingText';
 import TransparentVideo from '../components/TransparentVideo';
+import soundManager from '../utils/soundManager';
 
 const Hero = () => {
   const nameRef = useRef(null);
@@ -17,15 +18,14 @@ const Hero = () => {
     if (chars?.length) {
       gsap.fromTo(
         chars,
-        { opacity: 0, y: 30, rotateX: -40 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          rotateX: 0,
-          duration: 0.6,
+          duration: 0.5,
           stagger: 0.04,
           ease: 'power3.out',
-          delay: 2.6,
+          delay: 0.3,
         }
       );
     }
@@ -87,10 +87,23 @@ const Hero = () => {
               letterSpacing: '-0.04em',
               lineHeight: 1.1,
               marginBottom: 16,
-              perspective: '600px',
             }}
           >
-            Hi, I'm <span className="gradient-text-wide">{name}</span>
+            Hi, I'm{' '}
+            <span className="gradient-text-wide">
+              {name.split('').map((char, index) => (
+                <span
+                  key={index}
+                  className="hero-char"
+                  style={{
+                    display: 'inline-block',
+                    whiteSpace: char === ' ' ? 'pre' : 'normal',
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
           </h1>
 
           {/* Rotating Tagline */}
@@ -160,16 +173,16 @@ const Hero = () => {
 
           {/* Social Profiles Row */}
           <div className="hero-socials">
-            <a href="https://github.com/Jaffreenmarinvanan" target="_blank" rel="noopener noreferrer" className="social-icon-btn github-btn" aria-label="GitHub">
+            <a href="https://github.com/Jaffreenmarinvanan" target="_blank" rel="noopener noreferrer" className="social-icon-btn github-btn" aria-label="GitHub" onClick={() => soundManager.play('click')}>
               <FaGithub size={20} />
             </a>
-            <a href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/" target="_blank" rel="noopener noreferrer" className="social-icon-btn linkedin-btn" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/" target="_blank" rel="noopener noreferrer" className="social-icon-btn linkedin-btn" aria-label="LinkedIn" onClick={() => soundManager.play('click')}>
               <FaLinkedin size={20} />
             </a>
-            <a href="https://www.instagram.com/jaffreez_mv/" target="_blank" rel="noopener noreferrer" className="social-icon-btn instagram-btn" aria-label="Instagram">
+            <a href="https://www.instagram.com/jaffreez_mv/" target="_blank" rel="noopener noreferrer" className="social-icon-btn instagram-btn" aria-label="Instagram" onClick={() => soundManager.play('click')}>
               <FaInstagram size={20} />
             </a>
-            <a href="https://x.com/jaffreen_m" target="_blank" rel="noopener noreferrer" className="social-icon-btn twitter-btn" aria-label="X (Twitter)">
+            <a href="https://x.com/jaffreen_m" target="_blank" rel="noopener noreferrer" className="social-icon-btn twitter-btn" aria-label="X (Twitter)" onClick={() => soundManager.play('click')}>
               <FaXTwitter size={20} />
             </a>
           </div>
@@ -278,8 +291,9 @@ const Hero = () => {
           background: rgba(255, 255, 255, 0.04);
           border: 1px solid rgba(255, 255, 255, 0.08);
           color: var(--muted);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1), background 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          will-change: transform;
         }
 
         .light-mode .social-icon-btn {
@@ -288,8 +302,13 @@ const Hero = () => {
         }
 
         .social-icon-btn:hover {
-          transform: translateY(-3px) scale(1.05);
+          transform: translateY(-3px) scale(1.04);
           color: #fff;
+        }
+
+        .social-icon-btn:active {
+          transform: translateY(0) scale(0.96);
+          transition-duration: 120ms;
         }
 
         /* Hover brand customization colors */

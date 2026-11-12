@@ -40,11 +40,11 @@ const Skills = () => {
       />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto', padding: '0 24px' }}>
-        <p className="section-label">SKILL</p>
-        <h2 className="section-heading">PROFESSIONAL SKILLS</h2>
+        <p className="section-label stagger-child">SKILL</p>
+        <h2 className="section-heading stagger-child">PROFESSIONAL SKILLS</h2>
       </div>
 
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <div className="stagger-child" style={{ position: 'relative', zIndex: 1 }}>
         <LogoLoop
           items={skillItems}
           speed={85}

@@ -18,6 +18,7 @@
  */
 
 import { useRef, useEffect, useCallback } from 'react';
+import soundManager from '../utils/soundManager';
 import './GlowBorderButton.css';
 
 /**
@@ -138,12 +139,17 @@ const GlowBorderButton = ({
     ? { '--gbb-radius': typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius }
     : {};
 
+  const handleClick = (e) => {
+    soundManager.play('click');
+    if (onClick) onClick(e);
+  };
+
   return (
     <Tag
       ref={btnRef}
       {...tagProps}
       {...rest}
-      onClick={disabled ? undefined : onClick}
+      onClick={disabled ? undefined : handleClick}
       onPointerMove={disabled ? undefined : handlePointerMove}
       onPointerLeave={disabled ? undefined : handlePointerLeave}
       className={`gbb ${sizeClass} ${disabled ? 'gbb--disabled' : ''} ${className}`}

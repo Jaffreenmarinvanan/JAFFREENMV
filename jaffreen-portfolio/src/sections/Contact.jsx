@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import ContactStepper from './ContactStepper';
 import SpecularButton from '../components/SpecularButton';
 import InteractiveLines from '../components/InteractiveLines';
+import soundManager from '../utils/soundManager';
 import './Contact.css';
 
 const Contact = ({ isOpen, onClose, onOpen }) => {
@@ -11,6 +12,7 @@ const Contact = ({ isOpen, onClose, onOpen }) => {
   const activeOpen = isOpen !== undefined ? isOpen : internalOpen;
 
   const handleOpen = () => {
+    soundManager.play('modalOpen');
     if (onOpen) {
       onOpen();
     } else {
@@ -19,6 +21,7 @@ const Contact = ({ isOpen, onClose, onOpen }) => {
   };
 
   const handleClose = () => {
+    soundManager.play('modalClose');
     if (onClose) {
       onClose();
     } else {
@@ -85,15 +88,20 @@ const Contact = ({ isOpen, onClose, onOpen }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             onClick={handleClose}
           >
             <motion.div
               className="contact-modal-card"
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 30 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 280 }}
+              exit={{
+                opacity: 0,
+                scale: 0.96,
+                y: 20,
+                transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] },
+              }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* ── Interactive vertical lines canvas background ── */}

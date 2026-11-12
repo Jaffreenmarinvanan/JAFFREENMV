@@ -11,13 +11,15 @@
   font-weight: 500;
   color: var(--fg, #f0f0ff);
   letter-spacing: 0.02em;
-  transition: transform 0.25s ease;
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 .specular-btn:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 .specular-btn:active {
   transform: scale(0.98);
+  transition-duration: 120ms;
 }
 
 /* Sizes */
