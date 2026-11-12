@@ -28,14 +28,16 @@
   justify-content: center;
 }
 
-.project-card-new__img-wrapper img {
+.project-card-new__img-wrapper img,
+.project-card-new__img-wrapper video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.project-card-new:hover .project-card-new__img-wrapper img {
+.project-card-new:hover .project-card-new__img-wrapper img,
+.project-card-new:hover .project-card-new__img-wrapper video {
   transform: scale(1.05);
 }
 

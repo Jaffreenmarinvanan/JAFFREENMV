@@ -48,7 +48,7 @@ const Hero = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '100px 24px 60px',
+        padding: 'clamp(80px, 12vw, 100px) 16px 60px',
         overflow: 'hidden',
       }}
     >
@@ -93,7 +93,7 @@ const Hero = () => {
           </h1>
 
           {/* Rotating Tagline */}
-          <div className="hero-rotating-wrapper">
+          <div className="hero-rotating-wrapper" style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, flexWrap: 'wrap' }}>
             <span className="hero-rotating-label">I build</span>
             <RotatingText
               texts={[
@@ -174,14 +174,59 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right: Rounded Portrait Card with Glass Pills */}
+        {/* Right: Rounded Portrait Card with Glass Pills & Signature Below */}
         <div className="hero-badge" style={{ flexShrink: 0 }}>
           <FloatingBadge />
+          
+          {/* Signature Video directly below photo */}
+          <div className="hero-signature-wrapper">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="hero-signature-video"
+            >
+              <source src="/jaffreen-maraivanan-c-handwriting.mp4" type="video/mp4" />
+              <source src="/video.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </div>
 
       <style>{`
         
+        .hero-badge {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .hero-signature-wrapper {
+          position: relative;
+          width: 320px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 4px;
+        }
+
+        .hero-signature-video {
+          width: 100%;
+          max-width: 320px;
+          height: auto;
+          display: block;
+          mix-blend-mode: screen;
+          pointer-events: none;
+          filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.4));
+        }
+
+        .light-mode .hero-signature-video {
+          mix-blend-mode: multiply;
+          filter: invert(1) drop-shadow(0 0 10px rgba(120, 100, 255, 0.3));
+        }
+
         .hero-status {
           display: inline-flex;
           align-items: center;
@@ -307,6 +352,43 @@ const Hero = () => {
           }
           .hero-badge {
             transform: scale(0.9);
+          }
+          .hero-rotating-wrapper {
+            justify-content: center;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero-badge {
+            transform: scale(0.78);
+            margin-bottom: -20px;
+          }
+          .hero-layout {
+            gap: 20px !important;
+          }
+          .hero-buttons {
+            flex-direction: column !important;
+            align-items: center !important;
+            width: 100%;
+          }
+          .hero-buttons > * {
+            width: 100%;
+            max-width: 260px;
+          }
+          .hero-socials {
+            gap: 8px !important;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .hero-signature-wrapper {
+            width: 280px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero-signature-wrapper {
+            width: 240px;
           }
         }
       `}</style>

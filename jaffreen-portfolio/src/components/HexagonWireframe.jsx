@@ -13,11 +13,11 @@ const WireframeSphere = () => {
     <mesh ref={meshRef}>
       {/* Radius 2.2, Detail 2 creates the perfect geodesic sphere shape */}
       <icosahedronGeometry args={[2.2, 2]} />
-      <meshBasicMaterial 
-        color="#7c3aed" // Theme glow-1 color
-        wireframe={true} 
-        transparent={true} 
-        opacity={0.8} 
+      <meshBasicMaterial
+        color="#7c3aed"
+        wireframe={true}
+        transparent={true}
+        opacity={0.8}
       />
     </mesh>
   );

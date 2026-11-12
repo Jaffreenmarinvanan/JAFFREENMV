@@ -112,7 +112,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 16px;
   background: rgba(6, 6, 12, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -128,7 +128,7 @@
   position: relative;
   width: 100%;
   max-width: 1100px;
-  max-height: 90vh;
+  max-height: 92vh;
   overflow: hidden;           /* clip canvas to card boundary */
   background: rgba(18, 18, 30, 0.88);
   backdrop-filter: blur(24px) saturate(190%);
@@ -147,8 +147,8 @@
   position: relative;
   z-index: 1;
   overflow-y: auto;
-  max-height: 90vh;
-  padding: 48px 40px;
+  max-height: 92vh;
+  padding: 40px 36px;
 }
 
 :root.light-mode .contact-modal-card {
@@ -252,7 +252,35 @@
   color: var(--muted);
   font-size: clamp(14px, 1.6vw, 16px);
   line-height: 1.6;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
+}
+
+.contact-direct-email {
+  margin-bottom: 28px;
+}
+
+.contact-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #c4b5fd;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.contact-email-link:hover {
+  background: rgba(124, 58, 237, 0.28);
+  border-color: rgba(168, 85, 247, 0.6);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
 }
 
 .contact-socials-row {
@@ -271,16 +299,18 @@
 @media (max-width: 900px) {
   .contact-modal-card {
     border-radius: 20px;
+    max-height: 95vh;
   }
 
   .contact-modal-scroll-inner {
-    padding: 36px 20px;
+    padding: 28px 20px;
+    max-height: 95vh;
   }
 
   .contact-layout-wrapper {
     flex-direction: column;
     text-align: center;
-    gap: 36px;
+    gap: 28px;
   }
   
   .contact-left-info {
@@ -297,6 +327,24 @@
   }
 }
 
+@media (max-width: 600px) {
+  .contact-modal-backdrop {
+    padding: 8px;
+    align-items: flex-end;
+  }
+  
+  .contact-modal-card {
+    border-radius: 20px 20px 0 0;
+    max-height: 96vh;
+    border-bottom: none;
+  }
+  
+  .contact-modal-scroll-inner {
+    padding: 24px 16px;
+    max-height: 96vh;
+  }
+}
+
 @media (max-width: 480px) {
   .floating-contact-btn {
     bottom: 20px;
@@ -308,4 +356,3 @@
     font-size: 13px;
   }
 }
-

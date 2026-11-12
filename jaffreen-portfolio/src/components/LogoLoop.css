@@ -70,3 +70,23 @@
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+@media (max-width: 480px) {
+  .logo-loop-item {
+    padding: 12px;
+    min-width: 68px;
+  }
+
+  .logo-loop-item__monogram {
+    font-size: 18px;
+  }
+
+  .logo-loop-item__label {
+    font-size: 9px;
+  }
+
+  .logo-loop-wrapper--fade::before,
+  .logo-loop-wrapper--fade::after {
+    width: 60px;
+  }
+}

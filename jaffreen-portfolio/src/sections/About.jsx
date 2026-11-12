@@ -28,7 +28,7 @@ const About = () => {
         <div>
           <p
             style={{
-              color: 'var()',
+              color: 'var(--fg)',
               fontSize: 18,
               lineHeight: 1.75,
               marginBottom: 20,
@@ -63,6 +63,16 @@ const About = () => {
         @media (max-width: 768px) {
           .about-grid {
             grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+          #about {
+            padding: 80px 20px !important;
+          }
+          #about .section-heading {
+            font-size: clamp(22px, 6vw, 32px) !important;
+          }
+          #about p {
+            font-size: 16px !important;
           }
         }
       `}</style>

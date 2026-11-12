@@ -122,8 +122,30 @@ button { font-family: inherit; }
   background: var(--glow-1);
 }
 
-/* ── Selection ───────────────────────────── */
+/* ── Selection ───────────────────────────────── */
 ::selection {
   background: rgba(124, 58, 237, 0.3);
   color: #fff;
+}
+
+/* ── Global Mobile Responsive ─────────────────── */
+@media (max-width: 768px) {
+  .section-heading {
+    font-size: clamp(22px, 6vw, 36px);
+    margin-bottom: 28px;
+  }
+
+  .section-label {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .section-heading {
+    font-size: clamp(20px, 5.5vw, 28px);
+  }
 }

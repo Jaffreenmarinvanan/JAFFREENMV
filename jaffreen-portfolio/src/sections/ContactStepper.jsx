@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import emailjs from '@emailjs/browser';
+import { motion } from 'motion/react';
 import Stepper, { Step } from '../components/Stepper';
 import SpecularButton from '../components/SpecularButton';
 import './ContactStepper.css';
@@ -41,12 +40,14 @@ const ContactStepper = () => {
     budget: '',
     timeline: '',
     description: '',
+    _gotcha: '', // invisible honeypot field
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [inquiryId, setInquiryId] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -89,43 +90,44 @@ const ContactStepper = () => {
     setIsSubmitting(true);
     setSubmitError('');
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-    const isPlaceholder =
-      !serviceId ||
-      !templateId ||
-      !publicKey ||
-      serviceId.includes('your_') ||
-      templateId.includes('your_') ||
-      publicKey.includes('your_');
-
     try {
-      if (isPlaceholder) {
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-      } else {
-        await emailjs.send(
-          serviceId,
-          templateId,
-          {
-            from_name: formData.name,
-            from_email: formData.email,
-            company: formData.company || 'N/A',
-            requirement: formData.projectType,
-            budget: formData.budget || 'Not specified',
-            timeline: formData.timeline || 'Not specified',
-            message: formData.description,
-          },
-          publicKey
-        );
+      // Connect to custom backend API (supports same-origin /api/contact or external VITE_API_URL)
+      const apiUrl = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '') + '/api/contact';
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          projectType: formData.projectType,
+          budget: formData.budget,
+          timeline: formData.timeline,
+          description: formData.description,
+          _gotcha: formData._gotcha || '',
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to deliver message to inbox. Please try again.');
+      }
+
+      if (data.inquiryId) {
+        setInquiryId(data.inquiryId);
       }
       setIsSuccess(true);
     } catch (err) {
-      console.error('EmailJS submit error:', err);
+      console.error('Contact API submit error:', err);
       setSubmitError(
-        err?.text || 'Failed to send message. Please try again or reach out directly via social links.'
+        err.message || 'Failed to send message. Please try again or reach out directly via social links.'
       );
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -197,7 +199,7 @@ const ContactStepper = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            Message Sent!
+            Delivered to Inbox!
           </motion.h3>
           <motion.p
             className="cs-success-message"
@@ -205,14 +207,35 @@ const ContactStepper = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.65 }}
           >
-            Thank you, {formData.name}! I'll get back to you as soon as possible.
+            Thank you, {formData.name}! Your message was processed and delivered directly to Jaffreen's inbox.
           </motion.p>
+
+          {inquiryId && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              style={{
+                marginTop: 14,
+                marginBottom: 6,
+                fontSize: '12px',
+                color: '#94a3b8',
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(139, 92, 246, 0.25)',
+                padding: '6px 16px',
+                borderRadius: '9999px',
+                display: 'inline-block',
+              }}
+            >
+              Tracking ID: <code style={{ color: '#a78bfa', fontWeight: 600 }}>{inquiryId}</code>
+            </motion.div>
+          )}
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            style={{ marginTop: 24 }}
+            style={{ marginTop: 20 }}
           >
             <SpecularButton
               size="sm"
@@ -222,9 +245,11 @@ const ContactStepper = () => {
                 setFormData({
                   name: '', email: '', company: '',
                   projectType: '', budget: '', timeline: '', description: '',
+                  _gotcha: '',
                 });
                 setIsSuccess(false);
                 setIsSubmitting(false);
+                setInquiryId('');
                 setErrors({});
                 setSubmitError('');
                 setCurrentStep(1);
@@ -272,6 +297,18 @@ const ContactStepper = () => {
             <p className="cs-step-subtitle">How can I reach you?</p>
 
             <div className="cs-form-grid">
+              {/* Invisible Bot Honeypot */}
+              <input
+                type="text"
+                name="_gotcha"
+                value={formData._gotcha}
+                onChange={handleChange}
+                style={{ display: 'none', position: 'absolute', left: '-9999px' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
+
               <div className="cs-field-group">
                 <label htmlFor="cs-name" className="cs-label">Full Name *</label>
                 <input

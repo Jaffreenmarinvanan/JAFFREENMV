@@ -23,7 +23,7 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="section-animate"
+      className="section-animate skills-section"
       style={{
         position: 'relative',
         padding: '100px 0',
@@ -31,39 +31,40 @@ const Skills = () => {
         overflow: 'hidden',
       }}
     >
-      {/* Threads animated background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      >
-        <Threads
-          color={[0.49, 0.23, 0.93]}
-          amplitude={1.2}
-          distance={0.3}
-          enableMouseInteraction={true}
-        />
-      </div>
+      {/* Threads animated background — CSS positions it absolute/inset:0 */}
+      <Threads
+        color={[0.49, 0.23, 0.93]}
+        amplitude={1.2}
+        distance={0.3}
+        enableMouseInteraction={true}
+      />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto', padding: '0 24px' }}>
         <p className="section-label">SKILL</p>
         <h2 className="section-heading">PROFESSIONAL SKILLS</h2>
       </div>
 
-      <LogoLoop
-        items={skillItems}
-        speed={85}
-        direction="right"
-        logoHeight={54}
-        gap={52}
-        fadeOut={true}
-        fadeOutColor="var(--bg-2)"
-        scaleOnHover={true}
-        hoverSpeed={0}
-      />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <LogoLoop
+          items={skillItems}
+          speed={85}
+          direction="right"
+          logoHeight={54}
+          gap={52}
+          fadeOut={true}
+          fadeOutColor="var(--bg-2)"
+          scaleOnHover={true}
+          hoverSpeed={0}
+        />
+      </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .skills-section {
+            padding: 60px 0 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

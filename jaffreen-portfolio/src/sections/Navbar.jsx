@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GlassSurface from '../components/GlassSurface';
 import SpecularButton from '../components/SpecularButton';
 
-const navLinks = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
+const navLinks = ['Home', 'About', 'Skills', 'Contact'];
 
 const Navbar = ({ theme, toggleTheme, onOpenContact }) => {
   const [mobileOpen, setMobileOpen] = useState(false);

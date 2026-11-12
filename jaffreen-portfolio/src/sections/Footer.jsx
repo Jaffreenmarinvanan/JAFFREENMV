@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
@@ -27,6 +27,9 @@ const Footer = () => {
               </a>
               <a href="https://x.com/jaffreen_m" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="X (Twitter)">
                 <FaXTwitter size={20} />
+              </a>
+              <a href="mailto:jaffreenmarinvanan4@gmail.com" className="footer-social-btn" aria-label="Email Jaffreen" title="Email Jaffreen">
+                <FaEnvelope size={19} />
               </a>
             </div>
           </div>
