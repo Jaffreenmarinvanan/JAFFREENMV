@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
 
-// Real projects can be added here whenever you are ready:
+// Real projects sourced from Jaffreen's portfolio and repositories:
 const projectItems = [
-  /* Example format for your real projects:
   {
-    title: 'Your Project Name',
-    desc: 'Description of the problem solved, stack used, and outcomes achieved.',
-    category: 'Web Application', // 'Web Application' | 'Mobile application'
-    image: '/project_preview.png',
-    repoLink: 'https://github.com/Jaffreenmarinvanan/repo',
-    demoLink: 'https://your-live-demo.com',
-  }
-  */
+    title: 'Contact API & 100% Inbox Delivery Engine',
+    desc: 'Production-grade custom backend platform with multi-provider failover (SMTP & Resend), bot honeypot filter, rate limiting, and zero-data-loss inquiry storage.',
+    category: 'Web Application',
+    image: '/profile.jpg',
+    repoLink: 'https://github.com/Jaffreenmarinvanan/JAFFREENMV',
+    demoLink: 'https://github.com/Jaffreenmarinvanan/JAFFREENMV',
+  },
+  {
+    title: 'Marvel Universe Interactive Hub',
+    desc: 'Interactive web application exploring Marvel Cinematic Universe characters, multimedia elements, and storyline lore.',
+    category: 'Web Application',
+    image: '/profile.jpg',
+    repoLink: 'https://github.com/Jaffreenmarinvanan/marvel',
+    demoLink: 'https://github.com/Jaffreenmarinvanan/marvel',
+  },
+  {
+    title: 'Naan Mudhalvan Skill Initiative Platform',
+    desc: 'Educational learning and technical skill-development platform built for students under the Tamil Nadu Naan Mudhalvan initiative.',
+    category: 'Web Application',
+    image: '/profile.jpg',
+    repoLink: 'https://github.com/Jaffreenmarinvanan/Naanmudhalvan',
+    demoLink: 'https://github.com/Jaffreenmarinvanan/Naanmudhalvan',
+  },
 ];
 
 const Projects = () => {
@@ -32,7 +46,7 @@ const Projects = () => {
       }}
     >
       <h2 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: 'bold', marginBottom: '40px', color: '#fff', textAlign: 'center' }}>
-        My Projects
+        Featured Projects
       </h2>
 
       <div style={{ display: 'flex', gap: '12px', marginBottom: '40px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -51,63 +65,27 @@ const Projects = () => {
             boxShadow: activeCategory === 'Web Application' ? '0 0 20px rgba(168, 85, 247, 0.4)' : 'none',
           }}
         >
-          Web Application
-        </button>
-        <button
-          onClick={() => setActiveCategory('Mobile application')}
-          style={{
-            padding: 'clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px)',
-            borderRadius: '99px',
-            border: activeCategory !== 'Mobile application' ? '1px solid rgba(255,255,255,0.2)' : 'none',
-            background: activeCategory === 'Mobile application' ? 'linear-gradient(90deg, #a855f7, #ec4899)' : 'transparent',
-            color: activeCategory === 'Mobile application' ? '#fff' : 'var(--muted)',
-            cursor: 'pointer',
-            fontWeight: 500,
-            fontSize: 'clamp(13px, 3vw, 15px)',
-            transition: 'all 0.3s ease',
-            boxShadow: activeCategory === 'Mobile application' ? '0 0 20px rgba(168, 85, 247, 0.4)' : 'none',
-          }}
-        >
-          Mobile application
+          Web Applications
         </button>
       </div>
 
       <div style={{ 
         display: 'grid', 
         gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))', 
-        gap: '20px', 
+        gap: '24px', 
         width: '100%', 
         maxWidth: '1200px' 
       }}>
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((item, i) => (
-            <ProjectCard
-              key={i}
-              desc={item.desc}
-              image={item.image}
-              video={item.video}
-              repoLink={item.repoLink}
-              demoLink={item.demoLink}
-            />
-          ))
-        ) : (
-          <div style={{
-            gridColumn: '1 / -1',
-            textAlign: 'center',
-            padding: '60px 24px',
-            background: 'rgba(255, 255, 255, 0.03)',
-            borderRadius: '16px',
-            border: '1px dashed rgba(255, 255, 255, 0.15)',
-            color: 'var(--muted)',
-          }}>
-            <p style={{ fontSize: '18px', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>
-              🚀 Featured Projects Coming Soon
-            </p>
-            <p style={{ fontSize: '14px', maxWidth: '460px', margin: '0 auto', lineHeight: 1.6 }}>
-              Currently updating showcase projects. Reach out via the contact form to discuss custom solutions!
-            </p>
-          </div>
-        )}
+        {filteredProjects.map((item, i) => (
+          <ProjectCard
+            key={i}
+            desc={item.desc}
+            image={item.image}
+            video={item.video}
+            repoLink={item.repoLink}
+            demoLink={item.demoLink}
+          />
+        ))}
       </div>
     </section>
   );

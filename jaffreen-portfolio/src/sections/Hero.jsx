@@ -139,17 +139,17 @@ const Hero = () => {
             <GlowBorderButton
               size="lg"
               glowSize={130}
-              onClick={() => scrollTo('skills')}
+              onClick={() => scrollTo('projects')}
             >
-              Explore Skills
+              Explore Projects
             </GlowBorderButton>
             <GlowBorderButton
               size="lg"
               glowSize={130}
-              onClick={(e) => {
-                e.preventDefault();
-                alert("Resume PDF will be uploaded soon!");
-              }}
+              tag="a"
+              href="/resume.pdf"
+              download="Jaffreen_Maraivanan_Resume.pdf"
+              target="_blank"
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <FaDownload size={14} /> Resume
