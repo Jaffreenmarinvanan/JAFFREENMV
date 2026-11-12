@@ -1,8 +1,19 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import soundManager from '../utils/soundManager';
 
 const Footer = () => {
+  const scrollToTop = () => {
+    soundManager.click();
+    soundManager.transition();
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="premium-footer">
       <div className="footer-inner">
@@ -16,19 +27,58 @@ const Footer = () => {
             <span className="gradient-text logo-text">JMV</span>
 
             <div className="footer-socials-popup">
-              <a href="https://github.com/Jaffreenmarinvanan" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="GitHub">
+              <a
+                href="https://github.com/Jaffreenmarinvanan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-btn"
+                aria-label="GitHub"
+                onMouseEnter={() => soundManager.hover()}
+                onClick={() => soundManager.click()}
+              >
                 <FaGithub size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="LinkedIn">
+              <a
+                href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-btn"
+                aria-label="LinkedIn"
+                onMouseEnter={() => soundManager.hover()}
+                onClick={() => soundManager.click()}
+              >
                 <FaLinkedin size={20} />
               </a>
-              <a href="https://www.instagram.com/jaffreez_mv/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/jaffreez_mv/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-btn"
+                aria-label="Instagram"
+                onMouseEnter={() => soundManager.hover()}
+                onClick={() => soundManager.click()}
+              >
                 <FaInstagram size={20} />
               </a>
-              <a href="https://x.com/jaffreen_m" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="X (Twitter)">
+              <a
+                href="https://x.com/jaffreen_m"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-btn"
+                aria-label="X (Twitter)"
+                onMouseEnter={() => soundManager.hover()}
+                onClick={() => soundManager.click()}
+              >
                 <FaXTwitter size={20} />
               </a>
-              <a href="mailto:jaffreenmarinvanan4@gmail.com" className="footer-social-btn" aria-label="Email Jaffreen" title="Email Jaffreen">
+              <a
+                href="mailto:jaffreenmarinvanan4@gmail.com"
+                className="footer-social-btn"
+                aria-label="Email Jaffreen"
+                title="Email Jaffreen"
+                onMouseEnter={() => soundManager.hover()}
+                onClick={() => soundManager.click()}
+              >
                 <FaEnvelope size={19} />
               </a>
             </div>
@@ -39,6 +89,15 @@ const Footer = () => {
           <span className="designed-by">
             Designed & Built with <span className="heart">❤️</span><span className="bubble">🫧</span> by jaffreen
           </span>
+          <button
+            onClick={scrollToTop}
+            className="back-to-top-btn"
+            title="Back to Top"
+            aria-label="Back to Top"
+            onMouseEnter={() => soundManager.hover()}
+          >
+            ↑
+          </button>
         </div>
 
       </div>
@@ -70,6 +129,31 @@ const Footer = () => {
 
         .footer-right {
           justify-content: flex-end;
+        }
+
+        .back-to-top-btn {
+          margin-left: 18px;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--border);
+          color: var(--fg);
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .back-to-top-btn:hover {
+          background: rgba(124, 58, 237, 0.2);
+          border-color: rgba(168, 85, 247, 0.5);
+          transform: translateY(-3px);
+          color: #c4b5fd;
+          box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
         }
 
         .copyright, .designed-by {

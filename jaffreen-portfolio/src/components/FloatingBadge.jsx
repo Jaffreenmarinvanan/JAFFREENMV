@@ -1,6 +1,7 @@
 import React from 'react';
 import Tilt from 'react-parallax-tilt';
 import { FaNodeJs, FaReact, FaPython, FaFigma } from 'react-icons/fa';
+import soundManager from '../utils/soundManager';
 import './FloatingBadge.css';
 
 const iconMap = {
@@ -44,6 +45,7 @@ const FloatingBadge = ({
             <div
               key={tag.label}
               className={`pill-badge pill-badge--${tag.position}`}
+              onMouseEnter={() => soundManager.hover()}
             >
               {iconMap[tag.label]}
               <span className="pill-badge__text">{tag.label}</span>

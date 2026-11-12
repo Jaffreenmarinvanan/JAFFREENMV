@@ -1,40 +1,59 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import GlowBorderButton from '../components/GlowBorderButton';
 import FloatingBadge from '../components/FloatingBadge';
 import RotatingText from '../components/RotatingText';
+import soundManager from '../utils/soundManager';
 
 const Hero = () => {
   const nameRef = useRef(null);
   const sectionRef = useRef(null);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const name = 'Jaffreen Maraivanan';
 
   useEffect(() => {
-    // Animate name letters staggered
+    // Animate name letters staggered in 3D perspective
     const chars = nameRef.current?.querySelectorAll('.hero-char');
     if (chars?.length) {
       gsap.fromTo(
         chars,
-        { opacity: 0, y: 30, rotateX: -40 },
+        { opacity: 0, y: 35, rotateX: -60 },
         {
           opacity: 1,
           y: 0,
           rotateX: 0,
-          duration: 0.6,
-          stagger: 0.04,
+          duration: 0.65,
+          stagger: 0.035,
           ease: 'power3.out',
-          delay: 2.6,
+          delay: 0.3,
         }
       );
     }
   }, []);
 
-  const name = 'Jaffreen Maraivanan';
-
   const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    soundManager.click();
+    soundManager.transition();
+    if (window.lenis) {
+      window.lenis.scrollTo(`#${id}`, {
+        offset: -70,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleResumeClick = (e) => {
+    e.preventDefault();
+    soundManager.click();
+    setToastMessage('📄 Updated Resume PDF will be available shortly! Feel free to reach out via Contact.');
+    setTimeout(() => setToastMessage(''), 4000);
   };
 
   return (
@@ -52,6 +71,12 @@ const Hero = () => {
         overflow: 'hidden',
       }}
     >
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="hero-toast-notification">
+          <span>{toastMessage}</span>
+        </div>
+      )}
 
       {/* Main hero content: two-column layout */}
       <div
@@ -67,16 +92,15 @@ const Hero = () => {
           width: '100%',
         }}
       >
-        {/* Left: Text content (no glass surface background) */}
+        {/* Left: Text content */}
         <div style={{ flex: 1, maxWidth: 580, width: '100%', textAlign: 'left' }}>
-
           {/* Status Indicator */}
           <div className="hero-status">
             <span className="status-dot"></span>
             <span className="status-text"> Hey Buddy</span>
           </div>
 
-          {/* Heading */}
+          {/* Heading with 3D Split Character Reveal */}
           <h1
             ref={nameRef}
             className="hero-name-heading"
@@ -86,21 +110,45 @@ const Hero = () => {
               letterSpacing: '-0.04em',
               lineHeight: 1.1,
               marginBottom: 16,
-              perspective: '600px',
+              perspective: '800px',
             }}
           >
-            Hi, I'm <span className="gradient-text-wide">{name}</span>
+            Hi, I'm{' '}
+            <span className="gradient-text-wide" style={{ display: 'inline-block' }}>
+              {name.split('').map((char, index) => (
+                <span
+                  key={index}
+                  className="hero-char"
+                  style={{
+                    display: 'inline-block',
+                    whiteSpace: char === ' ' ? 'pre' : 'normal',
+                    transformOrigin: 'bottom center',
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
           </h1>
 
           {/* Rotating Tagline */}
-          <div className="hero-rotating-wrapper" style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, flexWrap: 'wrap' }}>
+          <div
+            className="hero-rotating-wrapper"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              marginBottom: 24,
+              flexWrap: 'wrap',
+            }}
+          >
             <span className="hero-rotating-label">I build</span>
             <RotatingText
               texts={[
                 'Full Stack Applications',
                 'Modern Web UIs',
                 'Mobile Application',
-                'Interactive Games'
+                'Interactive Games',
               ]}
               mainClassName="hero-rotating-text"
               rotationInterval={3000}
@@ -114,7 +162,7 @@ const Hero = () => {
             />
           </div>
 
-          {/* New personalized description text from user screen */}
+          {/* Personalized description */}
           <p
             style={{
               color: 'var(--muted)',
@@ -126,7 +174,7 @@ const Hero = () => {
             Passionate developer exploring the world of code, one project at a time. Currently in my pre-final year of B.Tech Information Technology.
           </p>
 
-          {/* Action Buttons */}
+          {/* Action Buttons with Sound & Magnetic Glow */}
           <div
             className="hero-buttons"
             style={{
@@ -139,17 +187,16 @@ const Hero = () => {
             <GlowBorderButton
               size="lg"
               glowSize={130}
-              onClick={() => scrollTo('projects')}
+              onClick={() => scrollTo('skills')}
+              onMouseEnter={() => soundManager.hover()}
             >
-              View My Work
+              Explore Skills & Tech
             </GlowBorderButton>
             <GlowBorderButton
               size="lg"
               glowSize={130}
-              onClick={(e) => {
-                e.preventDefault();
-                alert("Resume PDF will be uploaded soon!");
-              }}
+              onClick={handleResumeClick}
+              onMouseEnter={() => soundManager.hover()}
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <FaDownload size={14} /> Resume
@@ -159,25 +206,60 @@ const Hero = () => {
 
           {/* Social Profiles Row */}
           <div className="hero-socials">
-            <a href="https://github.com/Jaffreenmarinvanan" target="_blank" rel="noopener noreferrer" className="social-icon-btn github-btn" aria-label="GitHub">
+            <a
+              href="https://github.com/Jaffreenmarinvanan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-btn github-btn"
+              aria-label="GitHub"
+              onMouseEnter={() => soundManager.hover()}
+              onClick={() => soundManager.click()}
+            >
               <FaGithub size={20} />
             </a>
-            <a href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/" target="_blank" rel="noopener noreferrer" className="social-icon-btn linkedin-btn" aria-label="LinkedIn">
+            <a
+              href="https://www.linkedin.com/in/jaffreen-marainvanan-08a379227/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-btn linkedin-btn"
+              aria-label="LinkedIn"
+              onMouseEnter={() => soundManager.hover()}
+              onClick={() => soundManager.click()}
+            >
               <FaLinkedin size={20} />
             </a>
-            <a href="https://www.instagram.com/jaffreez_mv/" target="_blank" rel="noopener noreferrer" className="social-icon-btn instagram-btn" aria-label="Instagram">
+            <a
+              href="https://www.instagram.com/jaffreez_mv/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-btn instagram-btn"
+              aria-label="Instagram"
+              onMouseEnter={() => soundManager.hover()}
+              onClick={() => soundManager.click()}
+            >
               <FaInstagram size={20} />
             </a>
-            <a href="https://x.com/jaffreen_m" target="_blank" rel="noopener noreferrer" className="social-icon-btn twitter-btn" aria-label="X (Twitter)">
+            <a
+              href="https://x.com/jaffreen_m"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-btn twitter-btn"
+              aria-label="X (Twitter)"
+              onMouseEnter={() => soundManager.hover()}
+              onClick={() => soundManager.click()}
+            >
               <FaXTwitter size={20} />
             </a>
           </div>
         </div>
 
-        {/* Right: Rounded Portrait Card with Glass Pills & Signature Below */}
-        <div className="hero-badge" style={{ flexShrink: 0 }}>
+        {/* Right: Rounded Portrait Card with Ambient Aura & Signature Below */}
+        <div className="hero-badge" style={{ flexShrink: 0, position: 'relative' }}>
+          {/* Ambient Glowing Nebula Aura */}
+          <div className="hero-ambient-aura" />
+
           <FloatingBadge />
-          
+
           {/* Signature Video directly below photo */}
           <div className="hero-signature-wrapper">
             <video
@@ -188,14 +270,55 @@ const Hero = () => {
               className="hero-signature-video"
             >
               <source src="/jaffreen-maraivanan-c-handwriting.mp4" type="video/mp4" />
-              <source src="/video.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
       </div>
 
       <style>{`
-        
+        .hero-ambient-aura {
+          position: absolute;
+          top: 15%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 320px;
+          height: 320px;
+          background: radial-gradient(circle, rgba(124, 58, 237, 0.3) 0%, rgba(6, 182, 212, 0.15) 50%, transparent 70%);
+          filter: blur(50px);
+          border-radius: 50%;
+          z-index: -1;
+          pointer-events: none;
+          animation: auraBreathe 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes auraBreathe {
+          0% { transform: translateX(-50%) scale(0.9); opacity: 0.7; }
+          100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+        }
+
+        .hero-toast-notification {
+          position: fixed;
+          bottom: 30px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10000;
+          background: rgba(18, 14, 28, 0.85);
+          backdrop-filter: blur(16px);
+          border: 1px solid rgba(139, 92, 246, 0.4);
+          color: #f1f5f9;
+          padding: 12px 24px;
+          border-radius: 99px;
+          font-size: 14px;
+          font-weight: 500;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(124, 58, 237, 0.3);
+          animation: toastPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes toastPop {
+          0% { opacity: 0; transform: translate(-50%, 20px) scale(0.9); }
+          100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+        }
+
         .hero-badge {
           display: flex;
           flex-direction: column;
@@ -258,76 +381,46 @@ const Hero = () => {
           50% { opacity: .5; transform: scale(1.15); }
         }
 
-        .status-text {
-          font-size: 12px;
-          font-weight: 500;
-          letter-spacing: 0.02em;
-          color: var(--muted);
-        }
-
-        .hero-name-heading {
+        .hero-rotating-label {
+          font-size: clamp(20px, 2.5vw, 28px);
+          font-weight: 600;
           color: var(--fg);
         }
 
-        /* Social Profile Icon Buttons */
+        .hero-rotating-text {
+          font-size: clamp(20px, 2.5vw, 28px);
+          font-weight: 700;
+          background: linear-gradient(135deg, #a855f7, #ec4899);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .social-icon-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--border);
+          color: var(--fg);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .social-icon-btn:hover {
+          transform: translateY(-3px) scale(1.08);
+          background: rgba(124, 58, 237, 0.15);
+          border-color: rgba(168, 85, 247, 0.5);
+          color: #c4b5fd;
+          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+        }
+
         .hero-socials {
           display: flex;
           gap: 12px;
           align-items: center;
-        }
-
-        .social-icon-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: var(--muted);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .light-mode .social-icon-btn {
-          background: rgba(15, 23, 42, 0.04);
-          border-color: rgba(15, 23, 42, 0.08);
-        }
-
-        .social-icon-btn:hover {
-          transform: translateY(-3px) scale(1.05);
-          color: #fff;
-        }
-
-        /* Hover brand customization colors */
-        .github-btn:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.3);
-          box-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
-        }
-        
-        .light-mode .github-btn:hover {
-          background: #24292e;
-          border-color: #24292e;
-        }
-
-        .linkedin-btn:hover {
-          background: #0077b5;
-          border-color: #0077b5;
-          box-shadow: 0 0 16px rgba(0, 119, 181, 0.3);
-        }
-
-        .instagram-btn:hover {
-          background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-          border-color: transparent;
-          box-shadow: 0 0 16px rgba(220, 39, 67, 0.35);
-        }
-
-        .twitter-btn:hover {
-          background: #111;
-          border-color: #333;
-          box-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
         }
 
         @media (max-width: 868px) {
@@ -374,21 +467,6 @@ const Hero = () => {
           .hero-buttons > * {
             width: 100%;
             max-width: 260px;
-          }
-          .hero-socials {
-            gap: 8px !important;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .hero-signature-wrapper {
-            width: 280px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .hero-signature-wrapper {
-            width: 240px;
           }
         }
       `}</style>
