@@ -5,6 +5,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import GlowBorderButton from '../components/GlowBorderButton';
 import FloatingBadge from '../components/FloatingBadge';
 import RotatingText from '../components/RotatingText';
+import TransparentVideo from '../components/TransparentVideo';
 
 const Hero = () => {
   const nameRef = useRef(null);
@@ -178,13 +179,13 @@ const Hero = () => {
         <div className="hero-badge" style={{ flexShrink: 0 }}>
           <FloatingBadge />
           
-          {/* Signature in transparent PNG format with pure white text & zero background */}
+          {/* Animated Handwriting Video with 100% transparent background & pure white text */}
           <div className="hero-signature-wrapper">
-            <img
-              src="/jaffreen-signature.png"
-              alt="Jaffreen Maraivanan . C"
-              className="hero-signature-img"
-              loading="eager"
+            <TransparentVideo
+              src="/jaffreen-maraivanan-c-handwriting.mp4"
+              width={340}
+              height={100}
+              className="hero-signature-canvas"
             />
           </div>
         </div>
@@ -202,25 +203,20 @@ const Hero = () => {
         .hero-signature-wrapper {
           position: relative;
           width: 100%;
-          max-width: 320px;
+          max-width: 330px;
           display: flex;
           justify-content: center;
           align-items: center;
           margin-top: 6px;
+          pointer-events: none;
         }
 
-        .hero-signature-img {
+        .hero-signature-canvas {
           width: 100%;
-          max-width: 300px;
+          max-width: 320px;
           height: auto;
           display: block;
-          object-fit: contain;
-          pointer-events: none;
           user-select: none;
-        }
-
-        .light-mode .hero-signature-img {
-          filter: invert(1);
         }
 
         .hero-status {
